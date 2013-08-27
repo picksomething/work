@@ -24,15 +24,14 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f08000f;
+        public static final int action_settings=0x7f08000e;
         public static final int answer=0x7f080001;
         public static final int creatnum=0x7f080000;
         public static final int eight=0x7f080009;
         public static final int five=0x7f080006;
         public static final int four=0x7f080005;
-        public static final int info=0x7f08000e;
+        public static final int info=0x7f08000d;
         public static final int nine=0x7f08000a;
-        public static final int number=0x7f08000d;
         public static final int ok=0x7f08000c;
         public static final int one=0x7f080002;
         public static final int seven=0x7f080008;

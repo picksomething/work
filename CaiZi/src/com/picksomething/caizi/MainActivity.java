@@ -19,14 +19,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends Activity {
-	private String result;
+	//private String result;
 	private int[] RandomNum = new int[4];
 	private int[] UserInputNum = new int[4];
 	private int t;
 	private int count;
 	private EditText as;
 	private Button ok;
-	private TextView number;
+	//private TextView number;
 	private TextView info;
 	private Button[] bt = new Button[10];
 	private int[] id= {R.id.zero,R.id.one,R.id.two,R.id.three,
@@ -42,10 +42,9 @@ public class MainActivity extends Activity {
 			bt[i] = (Button)findViewById(id[i]);
 		}
 		as = (EditText)findViewById(R.id.answer);
-		number = (TextView)findViewById(R.id.number);
+		//number = (TextView)findViewById(R.id.number);
 		info = (TextView)findViewById(R.id.info);
 		ok = (Button)findViewById(R.id.ok);
-		
 	}
 	public void doOk(View v){
 		int Anum = 0;
@@ -53,7 +52,6 @@ public class MainActivity extends Activity {
 		if(v == ok){
 			if(as.getText().toString().length() != 4)
 				Toast.makeText(this, "你确定正确填写四位数了吗？", Toast.LENGTH_SHORT).show();
-
 			else{
 				count++;
 				for(int i=0; i<4; i++){
@@ -68,29 +66,27 @@ public class MainActivity extends Activity {
 					}
 				}
 				if(8 == count){
-					AlertDialog.Builder builder = new AlertDialog.Builder(this)
-					.setTitle("提示")
-					.setMessage("你已经用完八次机会了，再接再厉！")
+					AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("提示")
+					.setMessage("很遗憾，你已经用完八次机会了，再接再厉！")
 					.setPositiveButton("确定", new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
 						}
 					});
 					builder.create().show();
 					ok.setEnabled(false);
 				}
 				if(4 == Anum){
-					Toast.makeText(this, "you win！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "你赢了，好厉害啊！", Toast.LENGTH_SHORT).show();
 					StringBuffer re = new StringBuffer(info.getText());
-					re.append('\n'+as.getText().toString()+"---->"+Anum+"A"+Bnum+"B");
+					re.append('\n'+as.getText().toString()+"------->"+Anum+"A"+Bnum+"B");
 					info.setText(re);
 					ok.setEnabled(false);
 				}
 				else{
-					Toast.makeText(this, "wrong，please continue！", Toast.LENGTH_SHORT).show();
+					Toast.makeText(this, "不对，请继续！", Toast.LENGTH_SHORT).show();
 					StringBuffer re = new StringBuffer(info.getText());
-					re.append('\n'+as.getText().toString()+"---->"+Anum+"A"+Bnum+"B");
+					re.append('\n'+as.getText().toString()+"------->"+Anum+"A"+Bnum+"B");
 					info.setText(re);
 				}
 			}
@@ -131,16 +127,16 @@ public class MainActivity extends Activity {
 	
 	public void getIn(){
 		int j=0;
-		result = "";
+		//result = "";
 		String[] a = getNumber();
 		do{
 			a = getNumber();
 		}while(!(repeatOrNot(a)));
 		for(String str:a){
-			result += str;
+			//result += str;
 			RandomNum[j++] = Integer.parseInt(str);
 		}
-		number.setText(result.toString());
+		//number.setText(result.toString());
 	}
 	
 	public String[] getNumber(){
@@ -173,9 +169,8 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item){
 		switch(item.getItemId()){
 		case 1:
-			AlertDialog.Builder builder = new AlertDialog.Builder(this)
-			.setTitle("游戏帮助")
-			.setMessage(R.string.help)
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setTitle("游戏帮助").setMessage(R.string.help)
 			.setPositiveButton("确定", new OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -185,9 +180,12 @@ public class MainActivity extends Activity {
 			builder.create().show();
 			break;
 		case 2:
-			AlertDialog.Builder builder2 = new AlertDialog.Builder(this)
-			.setTitle("答案");
-			if(number.getText().toString().equals("")){
+			String an = "";
+			for(int a:RandomNum){
+				an += a;
+			}
+			AlertDialog.Builder builder2 = new AlertDialog.Builder(this).setTitle("答案");
+			if(an.equals("0000")){
 				builder2.setMessage("你还没有生成一个四位数哦！")
 				.setPositiveButton("确定", new OnClickListener() {
 					@Override
@@ -198,7 +196,7 @@ public class MainActivity extends Activity {
 				builder2.create().show();
 			}
 			else{
-				builder2.setMessage("答案是："+number.getText().toString()+",猜对了吗？")
+				builder2.setMessage("答案是："+an+",猜对了吗？")
 				.setPositiveButton("确定", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
@@ -209,7 +207,5 @@ public class MainActivity extends Activity {
 			}
 		}
 		return false;
-		
 	}
-
 }

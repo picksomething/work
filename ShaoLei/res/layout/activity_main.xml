@@ -1,0 +1,47 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="50sp"
+        android:textColor="#000"
+        android:background="#eee"
+        android:gravity="center_horizontal"
+        android:text="@string/title" />
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+	    <TextView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="left"
+	        android:textSize="40sp"
+	        android:text="@string/count"/>
+	    <Button
+	        android:id="@+id/ok"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="140dp"
+	        android:onClick="doClick"
+	        android:text="@string/title"/>
+	    <Chronometer
+	        android:id="@+id/time"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="130dp"
+	        android:textSize="40sp"
+	        android:layout_marginRight="0dp"/>
+    </LinearLayout>
+    <GridLayout 
+        android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:rowCount="8"
+	    android:columnCount="8"
+	    android:id="@+id/root">
+</GridLayout>
+</LinearLayout>

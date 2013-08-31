@@ -1,14 +1,12 @@
 package com.picksomething.caizi;
 
-import java.util.HashSet;
-import java.util.Set;
-
-import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.util.Log;
+import android.content.Intent;
+import android.graphics.Paint;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,12 +18,17 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	//private String result;
-	private int[] RandomNum = new int[4];
-	private int[] UserInputNum = new int[4];
+	private int[] RandomNum = new int[5];
+	private int[] UserInputNum = new int[5];
 	private int t;
 	private int count;
 	private EditText as;
-	private Button ok;
+	private Button ok,create;
+	
+	int numOfNum;
+	int numOfCount;
+	
+	ToolMethods tm = new ToolMethods();
 	//private TextView number;
 	private TextView info;
 	private Button[] bt = new Button[10];
@@ -38,6 +41,14 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.main);
+		Bundle bd = new Bundle();
+		Intent intent  = getIntent();
+		bd = intent.getExtras();
+		numOfNum = bd.getInt("num");
+		numOfCount = bd.getInt("count");
+		create = (Button)findViewById(R.id.creatnum);
+		create.setText("点击生成一个"+numOfNum+"位数");
+		create.setTextSize(30);
 		for(int i=0; i<10; i++){
 			bt[i] = (Button)findViewById(id[i]);
 		}
@@ -50,12 +61,12 @@ public class MainActivity extends Activity {
 		int Anum = 0;
 		int Bnum = 0;
 		if(v == ok){
-			if(as.getText().toString().length() != 4)
-				Toast.makeText(this, "你确定正确填写四位数了吗？", Toast.LENGTH_SHORT).show();
+			if(as.getText().toString().length() != numOfNum)
+				Toast.makeText(this, "你确定正确填写"+numOfNum+"位数了吗？", Toast.LENGTH_SHORT).show();
 			else{
 				count++;
-				for(int i=0; i<4; i++){
-					for(int j=0; j<4; j++){
+				for(int i=0; i<numOfNum; i++){
+					for(int j=0; j<numOfNum; j++){
 						if(UserInputNum[j] == RandomNum[i]){
 							if(i == j){
 								Anum++;
@@ -65,9 +76,9 @@ public class MainActivity extends Activity {
 						}
 					}
 				}
-				if(8 == count){
+				if(numOfCount == count){
 					AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("提示")
-					.setMessage("很遗憾，你已经用完八次机会了，再接再厉！")
+					.setMessage("很遗憾，你已经用完"+numOfCount+"次机会了，再接再厉！").setIcon(R.drawable.sad)
 					.setPositiveButton("确定", new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -76,17 +87,20 @@ public class MainActivity extends Activity {
 					builder.create().show();
 					ok.setEnabled(false);
 				}
-				if(4 == Anum){
-					Toast.makeText(this, "你赢了，好厉害啊！", Toast.LENGTH_SHORT).show();
+				if(numOfNum == Anum){
+					tm.showDialog(getApplicationContext(),"恭喜你，猜对了！", 3000, true, false);
 					StringBuffer re = new StringBuffer(info.getText());
 					re.append('\n'+as.getText().toString()+"------->"+Anum+"A"+Bnum+"B");
 					info.setText(re);
 					ok.setEnabled(false);
 				}
 				else{
-					Toast.makeText(this, "不对，请继续！", Toast.LENGTH_SHORT).show();
+					tm.showDialog(getApplicationContext(),"额，没猜对，继续加油吧！", 3000, false, false);
 					StringBuffer re = new StringBuffer(info.getText());
 					re.append('\n'+as.getText().toString()+"------->"+Anum+"A"+Bnum+"B");
+					info.getPaint().setFakeBoldText(true);
+					info.getPaint().setAntiAlias(true);
+					info.getPaint().setFlags(Paint. UNDERLINE_TEXT_FLAG );
 					info.setText(re);
 				}
 			}
@@ -96,26 +110,27 @@ public class MainActivity extends Activity {
 		for(Button a:bt){
 			a.setEnabled(true);
 		}
-		if(as.getText().length() == 4)
+		if(as.getText().length() == numOfNum)
 			as.setText("");
 	}
 	
 	public void create(View v){
-		getIn();
+		RandomNum = tm.getIn(numOfNum);
 		if(!(info.getText().toString().equals(""))){
 			info.setText("");
 		}
-		Toast.makeText(this, "成功生成，可以开始猜数字了。", Toast.LENGTH_SHORT).show();
+		tm.showDialog(getApplicationContext(),"成功生成，可以开始猜数字了", 3000, false, true);
 		ok.setEnabled(true);
+		count = 0;
 	}
 	
 	public void doClick(View v){
 		for(int i=0; i<10; i++){
 			if(v == bt[i]){	
 				UserInputNum[t++] = Integer.parseInt(bt[i].getText().toString());
-				Log.d("button", bt[i].getText().toString());
+				//Log.d("button", bt[i].getText().toString());
 				as.setText(as.getText().toString()+bt[i].getText());
-				if(as.getText().toString().length() == 4){
+				if(as.getText().toString().length() == numOfNum){
 					for(Button a:bt){
 						a.setEnabled(false);
 					}
@@ -123,40 +138,6 @@ public class MainActivity extends Activity {
 				break;
 			}
 		}
-	}
-	
-	public void getIn(){
-		int j=0;
-		//result = "";
-		String[] a = getNumber();
-		do{
-			a = getNumber();
-		}while(!(repeatOrNot(a)));
-		for(String str:a){
-			//result += str;
-			RandomNum[j++] = Integer.parseInt(str);
-		}
-		//number.setText(result.toString());
-	}
-	
-	public String[] getNumber(){
-		String[] a = new String[4];
-		for(int i=0; i<4; i++){
-			int number = (int)(Math.random()*10);
-			a[i]=String.valueOf(number);
-		}
-		return a;
-	}
-	
-	public boolean repeatOrNot(String[] array){
-		Set<String> set = new HashSet<String>();
-		for(String str:array){
-			set.add(str);
-		}
-		if(set.size() != array.length)
-			return false;
-		else
-			return true;
 	}
 
 	@Override
@@ -186,7 +167,7 @@ public class MainActivity extends Activity {
 			}
 			AlertDialog.Builder builder2 = new AlertDialog.Builder(this).setTitle("答案");
 			if(an.equals("0000")){
-				builder2.setMessage("你还没有生成一个四位数哦！")
+				builder2.setMessage("你还没有生成一个"+numOfNum+"位数哦！")
 				.setPositiveButton("确定", new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {

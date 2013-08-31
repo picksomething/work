@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/home"
+    android:orientation="vertical" >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/app_title"
+        android:textSize="20pt"
+        android:gravity="center_horizontal"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="50dip"
+        android:paddingBottom="10dip"  
+
+         />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:baselineAligned="false">
+        <LinearLayout
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:orientation="vertical">
+		    <Button 
+		        android:id="@+id/easy"
+		        android:layout_width="200dp"
+		        android:layout_height="80dp"
+		        android:onClick="doClick"
+		        android:layout_gravity="center_horizontal"
+		        android:text="@string/easy"/>
+		    <Button 
+		        android:id="@+id/common"
+		        android:layout_width="200dp"
+		        android:layout_height="80dp"
+		        android:onClick="doClick"
+		        android:layout_gravity="center"
+		        android:text="@string/common"/>
+		    <Button
+		        android:id="@+id/hard"
+		        android:layout_width="200dp"
+		        android:layout_height="80dp"
+		        android:onClick="doClick"
+		        android:layout_gravity="center_horizontal"
+		        android:text="@string/hard"/>
+	    </LinearLayout>
+	    </LinearLayout>
+  
+</LinearLayout>

@@ -4,9 +4,13 @@
     <string name="app_name">CaiZi</string>
     <string name="action_settings">游戏帮助</string>
     <string name="hello_world">Hello world!</string>
-    <string name="app_title">猜字游戏</string>
+    <string name="app_title">猜数字游戏</string>
     <string name="create">生成一个四位数</string>
     <string name="hint">在这里输入你的答案</string>
+    <string name="level">游戏难度</string>
+    <string name="easy">简单</string>
+    <string name="common">一般</string>
+    <string name="hard">困难</string>
     <string name="zero">0</string>
     <string name="one">1</string>
     <string name="two">2</string>

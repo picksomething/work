@@ -21,8 +21,8 @@
             android:text="@string/app_title"/>
         <Button
             android:id="@+id/creatnum"
-            android:layout_width="260dp"
-            android:layout_height="60dp"
+            android:layout_width="300dp"
+            android:layout_height="70dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:textColor="#f00"
@@ -45,20 +45,24 @@
         android:gravity="center_horizontal" />
     </LinearLayout>
     <LinearLayout 
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
+    
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/one"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:textSize="40sp"
-                android:layout_marginLeft="60dp"
+                android:layout_gravity="center"
+                
                 android:onClick="doClick"
                 android:text="@string/one"/>
             <Button
@@ -79,13 +83,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/four"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:textSize="40sp"
-                android:layout_marginLeft="60dp"
                 android:onClick="doClick"
                 android:text="@string/four"/>
             <Button
@@ -106,13 +111,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/seven"
                android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:textSize="40sp"
-                android:layout_marginLeft="60dp"
                 android:onClick="doClick"
                 android:text="@string/seven"/>
             <Button
@@ -130,16 +136,18 @@
                 android:onClick="doClick"
                 android:text="@string/nine"/>
         </LinearLayout>
+       
         <LinearLayout 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+             android:layout_gravity="center_horizontal"
+             android:gravity="center_horizontal"
             android:orientation="horizontal">
             <Button
                 android:id="@+id/zero"
                 android:layout_width="120dp"
                 android:layout_height="80dp"
                 android:textSize="40sp"
-                android:layout_marginLeft="60dp"
                 android:onClick="doClick"
                 android:text="@string/zero"/>
             <Button
@@ -151,7 +159,6 @@
                 android:enabled="false"
                 android:text="@string/ok"/>
         </LinearLayout>
-        
     </LinearLayout>
 
     <ScrollView

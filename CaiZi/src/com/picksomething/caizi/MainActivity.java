@@ -77,22 +77,40 @@ public class MainActivity extends Activity {
 					}
 				}
 				if(numOfCount == count){
-					AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("提示")
-					.setMessage("很遗憾，你已经用完"+numOfCount+"次机会了，再接再厉！").setIcon(R.drawable.sad)
-					.setPositiveButton("确定", new OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-						}
-					});
-					builder.create().show();
-					ok.setEnabled(false);
+					if(numOfNum == Anum){
+						tm.showDialog(getApplicationContext(),"好险啊，最后一次猜正确了。", 3000, false, true);
+						StringBuffer re = new StringBuffer(info.getText());
+						re.append('\n'+as.getText().toString()+"------->"+Anum+"A"+Bnum+"B");
+						info.setText(re);
+						ok.setEnabled(false);
+					}
+					else{
+						AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle("提示")
+						.setMessage("很遗憾，你已经用完"+numOfCount+"次机会了，再接再厉！").setIcon(R.drawable.sad)
+						.setPositiveButton("确定", new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+							}
+						});
+						builder.create().show();
+						ok.setEnabled(false);
+					}
 				}
-				if(numOfNum == Anum){
-					tm.showDialog(getApplicationContext(),"恭喜你，猜对了！", 3000, true, false);
-					StringBuffer re = new StringBuffer(info.getText());
-					re.append('\n'+as.getText().toString()+"------->"+Anum+"A"+Bnum+"B");
-					info.setText(re);
-					ok.setEnabled(false);
+				else if(numOfNum == Anum){
+					if(count == 1){
+						tm.showDialog(getApplicationContext(),"哇，好厉害啊，一次就猜对了。", 3000, false, true);
+						StringBuffer re = new StringBuffer(info.getText());
+						re.append('\n'+as.getText().toString()+"------->"+Anum+"A"+Bnum+"B");
+						info.setText(re);
+						ok.setEnabled(false);
+					}
+					else{
+						tm.showDialog(getApplicationContext(),"恭喜你，猜对了！", 3000, true, false);
+						StringBuffer re = new StringBuffer(info.getText());
+						re.append('\n'+as.getText().toString()+"------->"+Anum+"A"+Bnum+"B");
+						info.setText(re);
+						ok.setEnabled(false);
+					}
 				}
 				else{
 					tm.showDialog(getApplicationContext(),"额，没猜对，继续加油吧！", 3000, false, false);
